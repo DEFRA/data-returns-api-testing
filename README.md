@@ -44,7 +44,7 @@ https://www.getpostman.com/docs/pro/integrations/github
 
 ## Execution
 
-###Postman API client
+### Postman API client
 Once postman has been installed, collections from the git repo can be imported and run with the Postman API Client.
 
 * Open Post man API client
