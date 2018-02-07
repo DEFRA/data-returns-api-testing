@@ -49,7 +49,7 @@ Once postman has been installed, collections from the git repo can be imported a
 
 * Open Post man API client
 * Import Postman Collection files from git repo into postman (Import but top left habd side)
-* Click on collection tab top left Collections should appear.
+* Click on collection tab top left, and the imported Collections should appear.
 * Collections should be now ready to execute:
 
 https://www.getpostman.com/docs/postman/sending_api_requests/requests
