@@ -1,0 +1,4527 @@
+{
+	"variables": [],
+	"info": {
+		"name": "API Acceptance Test",
+		"_postman_id": "b98e3b1f-f353-a446-c37a-b5132e2bde09",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Test 1 - Create (PUT), update (PUT) and delete a dataset",
+			"description": "",
+			"item": [
+				{
+					"name": "PUT -  Create test dataset",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 200 || responseCode.code === 201;",
+									"",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/datasets/{{dataset}}",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"originator_email\": \"{{email}}\"}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET -  Create test dataset",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 200 || responseCode.code === 201;",
+									"",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/datasets",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET -  Create test dataset ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 200 || responseCode.code === 201;",
+									"",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/datasets/{{dataset}}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET -  Create test dataset - If Modifed Since",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 200 || responseCode.code === 201;",
+									"",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/datasets",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-Modified-Since",
+								"value": "Sun, 06 Nov 1994 08:49:37 GMT",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET -  Create test dataset ID - If Modifed Since",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 200 || responseCode.code === 201;",
+									"",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/datasets/{{dataset}}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-Modified-Since",
+								"value": "Sun, 06 Nov 1994 08:49:37 GMT",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET -  Create test dataset - If None Match",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 200 || responseCode.code === 201;",
+									"tests[\"eTag is present\"] = postman.getResponseHeader(\"ETag\"); //Note: the getResponseHeader() ",
+									"",
+									"",
+									"if (responseCode.code == 200 || responseCode.code == 201) {",
+									"    try{",
+									"        var new_etag = postman.getResponseHeader(\"ETag\");",
+									"        new_etag = new_etag.replace(/\"/g, '');",
+									"        console.log(new_etag);",
+									"        postman.setGlobalVariable(\"new_etag\", new_etag);",
+									"    }",
+									"    catch(e) {",
+									"        console.log(e)",
+									"    }",
+									"",
+									"}",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/10207/datasets",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-None-Match",
+								"value": "\"\\\"0d210bfb2a0e1f1b4c082a6a0f79de07\\\"\"",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET -  Create test dataset ID - If None Match",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 200 || responseCode.code === 201;",
+									"tests[\"eTag is present\"] = postman.getResponseHeader(\"ETag\"); //Note: the getResponseHeader() ",
+									"",
+									"",
+									"if (responseCode.code == 200 || responseCode.code == 201) {",
+									"    try{",
+									"        var new_etag = postman.getResponseHeader(\"ETag\");",
+									"        new_etag = new_etag.replace(/\"/g, '');",
+									"        console.log(new_etag);",
+									"        postman.setGlobalVariable(\"new_etag\", new_etag);",
+									"    }",
+									"    catch(e) {",
+									"        console.log(e)",
+									"    }",
+									"",
+									"}",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/10207/datasets/{{dataset}}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-None-Match",
+								"value": "\"\\\"0d210bfb2a0e1f1b4c082a6a0f79de07\\\"\"",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET -  Create test dataset - If None Match - 304",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 304;",
+									"",
+									"",
+									"if (responseCode.code == 304) {",
+									"    try{",
+									"        var new_etag = postman.getResponseHeader(\"ETag\");",
+									"        new_etag = new_etag.replace(/\"/g, '');",
+									"        console.log(new_etag);",
+									"        postman.setGlobalVariable(\"new_etag\", new_etag);",
+									"    }",
+									"    catch(e) {",
+									"        console.log(e)",
+									"    }",
+									"",
+									"}"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/10207/datasets",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-None-Match",
+								"value": "\"{{new_etag}}\"",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET -  Create test dataset ID - If None Match - 304 ",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 304;",
+									"",
+									"",
+									"if (responseCode.code == 304) {",
+									"    try{",
+									"        var new_etag = postman.getResponseHeader(\"ETag\");",
+									"        new_etag = new_etag.replace(/\"/g, '');",
+									"        console.log(new_etag);",
+									"        postman.setGlobalVariable(\"new_etag\", new_etag);",
+									"    }",
+									"    catch(e) {",
+									"        console.log(e)",
+									"    }",
+									"",
+									"}"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/10207/datasets/{{dataset}}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-None-Match",
+								"value": "\"{{new_etag}}\"",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET -  Create test dataset - If Modifed Since - 304",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 304;",
+									"",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/10207/datasets",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-Modified-Since",
+								"value": "Sun, 06 Nov 2017 08:49:37 GMT",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET -  Create test dataset ID - If Modifed Since - 304 ",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 304;",
+									"",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/10207/datasets/{{dataset}}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-Modified-Since",
+								"value": "Sun, 06 Nov 2017 08:49:37 GMT",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET -  Create test dataset - No matching ea_id - 404",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 404;",
+									"",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/10297/datasets",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET -  Create test dataset ID - No matching ea_id - 404",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 404;",
+									"",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/10297/datasets/{{dataset}}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": " PUT - Add a new record - No Preconditions",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 200 || responseCode.code === 201;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/datasets/{{dataset}}/records/{{record01}}",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"_payload_type\": \"DataSamplePayload\", \"EA_ID\": \"42355\", \"Site_Name\": \"Biffa - Marchington Landfill Site\", \"Rtn_Type\": \"Landfill gas borehole\", \"Mon_Date\": \"2015-08-05\", \"Rtn_Period\": \"Qtr 2 2016\", \"Mon_Point\": \"Monitor point/ the Mon-Point may be up to 50 chars\", \"Parameter\": \"16-(Thienylmethylene)Androstane-3,17-Diol SVOCS\", \"Value\": \"123\", \"Unit\": \"ºC\", \"Ref_Period\": \"Instantaneous\" }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE - Delete test dataset",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 204\"] = responseCode.code === 204;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/datasets/{{dataset}}",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Test 2 - Create (POST), update(POST) and delete a dataset",
+			"description": "",
+			"item": [
+				{
+					"name": "POST - Add multiple datasets – No Preconditions",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 200 || responseCode.code === 201 || responseCode.code === 207;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/datasets",
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"requests\": [ { \"dataset_id\": \"{{dataset}}\", \"preconditions\": {} } ]}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "POST - Add multiple records to test dataset",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 207\"] = responseCode.code === 207;",
+									"//tests[\"Body contains dataset\"] = responseBody.has(data.dataset);",
+									"",
+									""
+								]
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"",
+									"",
+									"console.log(\"The dataset that will be used: \" + data.dataset);",
+									"console.log(\"The dataset that will be used: \" + data.record1);",
+									"console.log(\"The dataset that will be used: \" + data.record2);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/datasets/{{dataset}}/records",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \n  \"requests\":[  \n     {  \n        \"payload\":{  \n           \"_payload_type\":\"DataSamplePayload\",\n            \"EA_ID\":\"42355\",\n            \"Site_Name\":\"Biffa - Marchington Landfill Site\",\n            \"Rtn_Type\":\"Landfill gas borehole\",\n            \"Mon_Date\":\"2015-08-05\",\n            \"Rtn_Period\":\"Qtr 2 2016\",\n            \"Mon_Point\":\"Monitor point1\",\n            \"Parameter\":\"16-(Thienylmethylene)Androstane-3,17-Diol SVOCS\",\n            \"Value\":\"-173\",\n            \"Unit\":\"ºC\",\n            \"Ref_Period\":\"Instantaneous\"\n         },\n         \"record_id\":\"{{record01}}\"\n      },\n           {  \n        \"payload\":{  \n           \"_payload_type\":\"DataSamplePayload\",\n            \"EA_ID\":\"42355\",\n            \"Site_Name\":\"Biffa - Marchington Landfill Site\",\n            \"Rtn_Type\":\"Landfill gas borehole\",\n            \"Mon_Date\":\"2015-08-05\",\n            \"Rtn_Period\":\"Qtr 2 2016\",\n            \"Mon_Point\":\"Monitor point1\",\n            \"Parameter\":\"16-(Thienylmethylene)Androstane-3,17-Diol SVOCS\",\n            \"Value\":\"-173\",\n            \"Unit\":\"ºC\",\n            \"Ref_Period\":\"Instantaneous\"\n         },\n         \"record_id\":\"{{record02}}\"\n      },\n           {  \n        \"payload\":{  \n           \"_payload_type\":\"DataSamplePayload\",\n            \"EA_ID\":\"42355\",\n            \"Site_Name\":\"Biffa - Marchington Landfill Site\",\n            \"Rtn_Type\":\"Landfill gas borehole\",\n            \"Mon_Date\":\"2015-08-05\",\n            \"Rtn_Period\":\"Qtr 2 2016\",\n            \"Mon_Point\":\"Monitor point1\",\n            \"Parameter\":\"16-(Thienylmethylene)Androstane-3,17-Diol SVOCS\",\n            \"Value\":\"-173\",\n            \"Unit\":\"ºC\",\n            \"Ref_Period\":\"Instantaneous\"\n         },\n         \"record_id\":\"{{record03}}\"\n      },\n      {  \n        \"payload\":{  \n           \"_payload_type\":\"DataSamplePayload\",\n            \"EA_ID\":\"42355\",\n            \"Site_Name\":\"Biffa - Marchington Landfill Site\",\n            \"Rtn_Type\":\"Landfill gas borehole\",\n            \"Mon_Date\":\"2015-08-05\",\n            \"Rtn_Period\":\"Qtr 2 2016\",\n            \"Mon_Point\":\"Monitor point1\",\n            \"Parameter\":\"16-(Thienylmethylene)Androstane-3,17-Diol SVOCS\",\n            \"Value\":\"-173\",\n            \"Unit\":\"ºC\",\n            \"Ref_Period\":\"Instantaneous\"\n         },\n         \"record_id\":\"{{record04}}\"\n         }\n   ]\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE - Delete test dataset",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 204\"] = responseCode.code === 204;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/datasets/{{dataset}}",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Test 3 - Create (POST) , update (If-Match) and delete a dataset",
+			"description": "",
+			"item": [
+				{
+					"name": "POST - Add datasets – No Preconditions",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 207;",
+									"tests[\"eTag is present\"] = postman.getResponseHeader(\"ETag\"); //Note: the getResponseHeader() ",
+									"",
+									"if (responseCode.code == 207) {",
+									"    try{",
+									"        var new_dataset = JSON.parse(responseBody);",
+									"        console.log(new_dataset);",
+									"        var new_etag = new_dataset.data[0].etag;",
+									"        new_etag = new_etag.replace(/\"/g, '');",
+									"        postman.setGlobalVariable(\"new_etag\", new_etag);",
+									"    }",
+									"    catch(e) {",
+									"        console.log(e)",
+									"    }",
+									"   ",
+									"}",
+									"",
+									"",
+									"",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/datasets",
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"requests\": [ { \"dataset_id\": \"{{dataset}}\", \"preconditions\": {} } ]}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "POST - Update existing dataset – If-Match",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 207;",
+									"",
+									"tests[\"Body matches string\"] = responseBody.has(data.code);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/datasets",
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "",
+								"value": "",
+								"description": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"requests\": [ { \"dataset_id\": \"{{dataset}}\", \"preconditions\": {\"if_match\": \"\\\"{{new_etag}}\\\"\" } } ]}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE - Delete test dataset",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 204\"] = responseCode.code === 204;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/datasets/{{dataset}}",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Create a dataset and Delete (if-Match)",
+			"description": "",
+			"item": [
+				{
+					"name": "PUT -  Create test dataset",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 200 || responseCode.code === 201;",
+									"tests[\"eTag is present\"] = postman.getResponseHeader(\"ETag\"); //Note: the getResponseHeader() ",
+									"",
+									"",
+									"if (responseCode.code == 200 || responseCode.code == 201) {",
+									"    try{",
+									"        var new_etag = postman.getResponseHeader(\"ETag\");",
+									"        new_etag = new_etag.replace(/\"/g, '');",
+									"        console.log(new_etag);",
+									"        postman.setGlobalVariable(\"new_etag\", new_etag);",
+									"    }",
+									"    catch(e) {",
+									"        console.log(e)",
+									"    }",
+									"",
+									"}",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/datasets/{{dataset}}",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"originator_email\": \"{{email}}\"}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE - Delete test dataset - If-Match - 412",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 412\"] = responseCode.code === 412;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/datasets/{{dataset}}",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-Match",
+								"value": "\"\\\"0d210bfb2a0e1f1b4c082a6a0f79de07\\\"\"",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE - Delete test dataset - If-Match",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 204\"] = responseCode.code === 204;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:9020/api/v1/ea_ids/{{ea_id}}/datasets/{{dataset}}",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-Match",
+								"value": "\"{{new_etag}}\"",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Create a dataset and Delete (if-Unmodified-Since)",
+			"description": "",
+			"item": [
+				{
+					"name": "PUT -  Create test dataset",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 200 || responseCode.code === 201;",
+									"tests[\"eTag is present\"] = postman.getResponseHeader(\"ETag\"); //Note: the getResponseHeader() ",
+									"",
+									"",
+									"if (responseCode.code == 200 || responseCode.code == 201) {",
+									"    try{",
+									"        var new_etag = postman.getResponseHeader(\"ETag\");",
+									"        new_etag = new_etag.replace(/\"/g, '');",
+									"        console.log(new_etag);",
+									"        postman.setGlobalVariable(\"new_etag\", new_etag);",
+									"    }",
+									"    catch(e) {",
+									"        console.log(e)",
+									"    }",
+									"",
+									"}",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:9020/api/v1/ea_ids/{{ea_id}}/datasets/{{dataset}}",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"originator_email\": \"{{email}}\"}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE - Delete test dataset - If-Unmodified - 412",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 412\"] = responseCode.code === 412;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:9020/api/v1/ea_ids/{{ea_id}}/datasets/{{dataset}}",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-Unmodified-Since",
+								"value": "Sun, 06 Nov 1994 08:49:37 GMT",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE - Delete test dataset - If-Unmodified",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 204\"] = responseCode.code === 204;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:9020/api/v1/ea_ids/{{ea_id}}/datasets/{{dataset}}",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-Unmodified-Since",
+								"value": "Sun, 06 Nov 2017 08:49:37 GMT",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Test 5 - Create (POST), Update (If-Unmodified-Since - Failed 412) and Delete a dataset",
+			"description": "",
+			"item": [
+				{
+					"name": "POST - Add multiple datasets – No Preconditions",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 207;",
+									"",
+									"if (responseCode.code == 207) {",
+									"    try{",
+									"        var new_dataset = JSON.parse(responseBody);",
+									"        console.log(new_dataset);",
+									"        var last_mod = new_dataset.data[0].last_modified;",
+									"        postman.setGlobalVariable(\"last_mod\", last_mod);",
+									"    }",
+									"    catch(e) {",
+									"        console.log(e)",
+									"    }",
+									"",
+									"}",
+									"",
+									"",
+									"",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/datasets",
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"requests\": [ { \"dataset_id\": \"{{dataset}}\", \"preconditions\": {} } ]}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "POST - Update existing dataset – If-Unmodified-Since 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 207;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/datasets",
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"requests\": [ { \"dataset_id\": \"{{dataset}}\", \"preconditions\": {\"if_unmodified_since\": \"{{last_mod}}\" } } ]}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "POST - Update existing dataset – If-Unmodified-Since 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Overall Status\"] = responseCode.code === 207;",
+									"",
+									"if (responseCode.code == 207) {",
+									"    try{",
+									"        var new_dataset = JSON.parse(responseBody);",
+									"        console.log(new_dataset);",
+									"        var status_code = new_dataset.data[0].code;",
+									"        tests[\"Status code - Failed condition - Unmodified Since\"] = status_code === 412;",
+									"    }",
+									"    catch(e) {",
+									"        console.log(e)",
+									"    }",
+									"",
+									"}"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/datasets",
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"requests\": [ { \"dataset_id\": \"{{dataset}}\", \"preconditions\": {\"if_unmodified_since\": \"Sun, 06 Nov 1994 08:49:37 GMT\" } } ]}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE - Delete test dataset",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 204\"] = responseCode.code === 204;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/datasets/{{dataset}}",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Test 6 - Create (POST), update (If-Match - Failed 412) and delete a dataset",
+			"description": "",
+			"item": [
+				{
+					"name": "POST - Add multiple datasets – No Preconditions",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 207;",
+									"",
+									"",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/datasets",
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"requests\": [ { \"dataset_id\": \"{{dataset}}\", \"preconditions\": {} } ]}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "POST - Update existing dataset – If-Match",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 207;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/datasets",
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "",
+								"value": "",
+								"description": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"requests\": [ { \"dataset_id\": \"{{dataset}}\", \"preconditions\": {\"if_match\": \"\\\"97234c05245bcb9c4d4fd8cd180ac8a1\\\"\" } } ]}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE - Delete test dataset",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 204\"] = responseCode.code === 204;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/datasets/{{dataset}}",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Test 7 - Create (PUT), update (PUT - if-match) and delete a dataset",
+			"description": "",
+			"item": [
+				{
+					"name": "PUT -  Create test dataset",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 200 || responseCode.code === 201;",
+									"tests[\"eTag is present\"] = postman.getResponseHeader(\"ETag\"); //Note: the getResponseHeader() ",
+									"",
+									"",
+									"if (responseCode.code == 200 || responseCode.code == 201) {",
+									"    try{",
+									"        var new_etag = postman.getResponseHeader(\"ETag\");",
+									"        new_etag = new_etag.replace(/\"/g, '');",
+									"        console.log(new_etag);",
+									"        postman.setGlobalVariable(\"new_etag\", new_etag);",
+									"    }",
+									"    catch(e) {",
+									"        console.log(e)",
+									"    }",
+									"",
+									"}",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/datasets/{{dataset}}",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"originator_email\": \"{{email}}\"}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": " PUT - Add a new record - If-Match",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 200 || responseCode.code === 201;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/datasets/{{dataset}}/records/{{record01}}",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-Match",
+								"value": "{{new_etag}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"_payload_type\": \"DataSamplePayload\", \"EA_ID\": \"10207\", \"Site_Name\": \"Biffa - Marchington Landfill Site\", \"Rtn_Type\": \"Landfill gas borehole\", \"Mon_Date\": \"2015-08-05\", \"Rtn_Period\": \"Qtr 2 2016\", \"Mon_Point\": \"Monitor point/ the Mon-Point may be up to 50 chars\", \"Parameter\": \"16-(Thienylmethylene)Androstane-3,17-Diol SVOCS\", \"Value\": \"123\", \"Unit\": \"ºC\", \"Ref_Period\": \"Instantaneous\" }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE - Delete test dataset",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 204\"] = responseCode.code === 204;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/datasets/{{dataset}}",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Test 8 - Create (PUT), update (PUT - if-unmodified-since) and delete a dataset",
+			"description": "",
+			"item": [
+				{
+					"name": "PUT -  Create test dataset",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 200 || responseCode.code === 201;",
+									"tests[\"Last Modified is present\"] = postman.getResponseHeader(\"Last-Modified\"); //Note: the getResponseHeader() ",
+									"",
+									"",
+									"if (responseCode.code == 200 || responseCode.code == 201) {",
+									"    try{",
+									"        var last_mod = postman.getResponseHeader(\"Last-Modified\");",
+									"        console.log(last_mod);",
+									"        postman.setGlobalVariable(\"last_mod\", last_mod);",
+									"    }",
+									"    catch(e) {",
+									"        console.log(e)",
+									"    }",
+									"",
+									"}",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/datasets/{{dataset}}",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"originator_email\": \"{{email}}\"}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "PUT -  Update test dataset - If -Unmodoified-Since",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 412;",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/datasets/{{dataset}}",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-Unmodified-Since",
+								"value": "Sun, 06 Nov 1994 08:49:37 GMT",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"originator_email\": \"{{email}}\"}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "PUT - Add a new record",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 200 || responseCode.code === 201;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/datasets/{{dataset}}/records/{{record01}}",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-Unmodified-Since",
+								"value": "{{last_mod}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"_payload_type\": \"DataSamplePayload\", \"EA_ID\": \"42355\", \"Site_Name\": \"Biffa - Marchington Landfill Site\", \"Rtn_Type\": \"Landfill gas borehole\", \"Mon_Date\": \"2015-08-05\", \"Rtn_Period\": \"Qtr 2 2016\", \"Mon_Point\": \"Monitor point/ the Mon-Point may be up to 50 chars\", \"Parameter\": \"16-(Thienylmethylene)Androstane-3,17-Diol SVOCS\", \"Value\": \"123\", \"Unit\": \"ºC\", \"Ref_Period\": \"Instantaneous\" }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE - Delete test dataset",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 204\"] = responseCode.code === 204;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/datasets/{{dataset}}",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Test 9 - Create (PUT), update (PUT - if-match - Failed 412) and delete a dataset",
+			"description": "",
+			"item": [
+				{
+					"name": "PUT -  Create test dataset",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 200 || responseCode.code === 201;",
+									"tests[\"eTag is present\"] = postman.getResponseHeader(\"ETag\"); //Note: the getResponseHeader() ",
+									"",
+									"",
+									"if (responseCode.code == 200 || responseCode.code == 201) {",
+									"    try{",
+									"        var new_etag = postman.getResponseHeader(\"ETag\");",
+									"        new_etag = new_etag.replace(/\"/g, '');",
+									"        console.log(new_etag);",
+									"        postman.setGlobalVariable(\"new_etag\", new_etag);",
+									"    }",
+									"    catch(e) {",
+									"        console.log(e)",
+									"    }",
+									"",
+									"}",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/datasets/{{dataset}}",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"originator_email\": \"{{email}}\"}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": " PUT - Add a new record - If-Match - Fail 412",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 412;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/datasets/{{dataset}}/records/{{record01}}",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-Match",
+								"value": "\"\\\"438e8a306f455cc35b6892518cd768fa\\\"\"",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"_payload_type\": \"DataSamplePayload\", \"EA_ID\": \"42355\", \"Site_Name\": \"Biffa - Marchington Landfill Site\", \"Rtn_Type\": \"Landfill gas borehole\", \"Mon_Date\": \"2015-08-05\", \"Rtn_Period\": \"Qtr 2 2016\", \"Mon_Point\": \"Monitor point/ the Mon-Point may be up to 50 chars\", \"Parameter\": \"16-(Thienylmethylene)Androstane-3,17-Diol SVOCS\", \"Value\": \"123\", \"Unit\": \"ºC\", \"Ref_Period\": \"Instantaneous\" }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE - Delete test dataset",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 204\"] = responseCode.code === 204;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/datasets/{{dataset}}",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Test 10 - Create (PUT), update (PUT - if-unmodified-since - Failed 412) and delete a dataset",
+			"description": "",
+			"item": [
+				{
+					"name": "PUT -  Create test dataset",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 200 || responseCode.code === 201;",
+									"tests[\"Last Modified is present\"] = postman.getResponseHeader(\"Last-Modified\"); //Note: the getResponseHeader() ",
+									"",
+									"",
+									"if (responseCode.code == 200 || responseCode.code == 201) {",
+									"    try{",
+									"        var last_mod = postman.getResponseHeader(\"Last-Modified\");",
+									"        console.log(last_mod);",
+									"        postman.setGlobalVariable(\"last_mod\", last_mod);",
+									"    }",
+									"    catch(e) {",
+									"        console.log(e)",
+									"    }",
+									"",
+									"}",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/datasets/{{dataset}}",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"originator_email\": \"{{email}}\"}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "PUT - Add a new record - If-Unmodified-Since 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 200 || responseCode.code === 201;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/datasets/{{dataset}}/records/{{record01}}",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-Unmodified-Since",
+								"value": "Sun, 06 Nov 1994 08:49:37 GMT",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"_payload_type\": \"DataSamplePayload\", \"EA_ID\": \"42355\", \"Site_Name\": \"Biffa - Marchington Landfill Site\", \"Rtn_Type\": \"Landfill gas borehole\", \"Mon_Date\": \"2015-08-05\", \"Rtn_Period\": \"Qtr 2 2016\", \"Mon_Point\": \"Monitor point/ the Mon-Point may be up to 50 chars\", \"Parameter\": \"16-(Thienylmethylene)Androstane-3,17-Diol SVOCS\", \"Value\": \"123\", \"Unit\": \"ºC\", \"Ref_Period\": \"Instantaneous\" }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "PUT - Add a new record - If-Unmodified-Since 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 412;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/datasets/{{dataset}}/records/{{record01}}",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-Unmodified-Since",
+								"value": "Sun, 06 Nov 1994 08:49:37 GMT",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"_payload_type\": \"DataSamplePayload\", \"EA_ID\": \"42355\", \"Site_Name\": \"Biffa - Marchington Landfill Site\", \"Rtn_Type\": \"Landfill gas borehole\", \"Mon_Date\": \"2015-08-05\", \"Rtn_Period\": \"Qtr 2 2016\", \"Mon_Point\": \"Monitor point/ the Mon-Point may be up to 50 chars\", \"Parameter\": \"16-(Thienylmethylene)Androstane-3,17-Diol SVOCS\", \"Value\": \"123\", \"Unit\": \"ºC\", \"Ref_Period\": \"Instantaneous\" }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE - Delete test dataset",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 204\"] = responseCode.code === 204;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/datasets/{{dataset}}",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Test 11 - List Datasets and list records",
+			"description": "",
+			"item": [
+				{
+					"name": "PUT -  Create test dataset",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 200 || responseCode.code === 201;",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/datasets/{{dataset}}",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"originator_email\": \"{{email}}\"}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "PUT - Add a new record",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 200 || responseCode.code === 201;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/datasets/{{dataset}}/records/{{record01}}",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"_payload_type\": \"DataSamplePayload\", \"EA_ID\": \"42355\", \"Site_Name\": \"Biffa - Marchington Landfill Site\", \"Rtn_Type\": \"Landfill gas borehole\", \"Mon_Date\": \"2015-08-05\", \"Rtn_Period\": \"Qtr 2 2016\", \"Mon_Point\": \"Monitor point/ the Mon-Point may be up to 50 chars\", \"Parameter\": \"16-(Thienylmethylene)Androstane-3,17-Diol SVOCS\", \"Value\": \"123\", \"Unit\": \"ºC\", \"Ref_Period\": \"Instantaneous\" }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET - List the available datasets",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 200 || responseCode.code === 201;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/datasets",
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET – List available records",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 200 || responseCode.code === 201;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/datasets/{{dataset}}/records",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET – List available records – Not Found",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 404;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/datasets/323232323/records",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET - Retrieve dataset details",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 200 || responseCode.code === 201;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/datasets/{{dataset}}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET - Retrieve dataset details – if-Modified-Since",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 200 || responseCode.code === 201;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/datasets/{{dataset}}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-Modified-Since",
+								"value": "Sun, 06 Nov 1994 08:49:37 GMT",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET - Retrieve dataset details – if-Modified-Since- 412",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Body matches string\"] = responseBody.has(\"200\");"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/datasets/{{dataset}}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-Modified-Since",
+								"value": "Sun, 06 Nov 1994 08:49:37 GMT",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET - Retrieve dataset details – If-None-Match",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 200 || responseCode.code === 201;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/datasets/{{dataset}}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-None-Match",
+								"value": "nonematch001",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET - Retrieve dataset details – If-None-Match - 412",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Body matches string\"] = responseBody.has(\"200\");"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/datasets/{{dataset}}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-None-Match",
+								"value": "nonematch001",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET - Retrieve dataset details – Not found",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 404;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/datasets/34123412341341",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET - Retrieve record details ",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Body matches string\"] = responseBody.has(\"200\");"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/datasets/{{dataset}}/records/{{record01}}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET - Retrieve record details – If-Modified-Since",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/datasets/{{dataset}}/records/{{record01}}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-Modified-Since",
+								"value": "Sun, 06 Nov 1994 08:49:37 GMT",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET - Retrieve record details – If-Modified-Since - 412",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/datasets/{{dataset}}/records/{{record01}}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-Modified-Since",
+								"value": "Sun, 06 Nov 1994 08:49:37 GMT",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET - Retrieve record details – If-None-Match",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Body matches string\"] = responseBody.has(\"200\");"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/datasets/{{dataset}}/records/{{record01}}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET - Retrieve record details – If-None-Match - 412",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Body matches string\"] = responseBody.has(\"200\");"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/datasets/{{dataset}}/records/{{record01}}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET - Retrieve record details – Not Found",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 404;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/datasets/334343434/records/334343434",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE - Delete test dataset",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 204\"] = responseCode.code === 204;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/datasets/{{dataset}}",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Test 12 - Definitions",
+			"description": "",
+			"item": [
+				{
+					"name": "GET - Definitions - Load Payload Types",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:9020/api/v1/definitions",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET - Definitions - List fields for given payload",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:9020/api/v1/definitions/DataSamplePayload/fields",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET - Definitions - List fields for given payload - Payload Not Found - 404",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"No payload was found\"] = responseCode.code === 404;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:9020/api/v1/definitions/DataSample/fields",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET - Definitions - List fields for given payload - If Modified Since",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:9020/api/v1/definitions/DataSamplePayload/fields",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-Modified-Since",
+								"value": "Sun, 06 Nov 1994 08:49:37 GMT",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET - Definitions - List fields for given payload - If None Match",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 200 || responseCode.code === 201;",
+									"tests[\"eTag is present\"] = postman.getResponseHeader(\"ETag\"); ",
+									"",
+									"",
+									"if (responseCode.code == 200 || responseCode.code == 201) {",
+									"    try{",
+									"        var new_etag = postman.getResponseHeader(\"ETag\");",
+									"        new_etag = new_etag.replace(/\"/g, '');",
+									"        console.log(new_etag);",
+									"        postman.setGlobalVariable(\"new_etag\", new_etag);",
+									"    }",
+									"    catch(e) {",
+									"        console.log(e)",
+									"    }",
+									"",
+									"}"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:9020/api/v1/definitions/DataSamplePayload/fields",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-None-Match",
+								"value": "\"{{new_etag}}\"",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET - Definitions - List fields for given payload - If Match",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:9020/api/v1/definitions/DataSamplePayload/fields",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-Match",
+								"value": "\"{{new_etag}}\"",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET - Definitions - List fields for given payload - Not Modified - 304",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 304\"] = responseCode.code === 304;",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:9020/api/v1/definitions/DataSamplePayload/fields",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-Modified-Since",
+								"value": "Sun, 06 Nov 2017 08:49:37 GMT",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET - Definitions - List fields data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:9020/api/v1/definitions/DataSamplePayload/fields/$data",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET - Definitions - List fields data- Payload Not found - 404",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 404;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:9020/api/v1/definitions/DataSample/fields/$data",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET - Definitions - List fields data - If Modified Since",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:9020/api/v1/definitions/DataSamplePayload/fields/$data",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-Modified-Since",
+								"value": "Sun, 06 Nov 1994 08:49:37 GMT",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET - Definitions - List fields data- If None Match",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 200 || responseCode.code === 201;",
+									"tests[\"eTag is present\"] = postman.getResponseHeader(\"ETag\"); //Note: the getResponseHeader() ",
+									"",
+									"",
+									"if (responseCode.code == 200 || responseCode.code == 201) {",
+									"    try{",
+									"        var new_etag = postman.getResponseHeader(\"ETag\");",
+									"        new_etag = new_etag.replace(/\"/g, '');",
+									"        console.log(new_etag);",
+									"        postman.setGlobalVariable(\"new_etag\", new_etag);",
+									"        ",
+									"    }",
+									"    catch(e) {",
+									"        console.log(e)",
+									"    }",
+									"",
+									"}"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:9020/api/v1/definitions/DataSamplePayload/fields/$data",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-None-Match",
+								"value": "\"{{new_etag}}\"",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET - Definitions - List fields data - If Match ",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 200 || responseCode.code === 201;",
+									"tests[\"eTag is present\"] = postman.getResponseHeader(\"ETag\"); //Note: the getResponseHeader() ",
+									"",
+									"",
+									"if (responseCode.code == 200 || responseCode.code == 201) {",
+									"    try{",
+									"        var new_etag = postman.getResponseHeader(\"ETag\");",
+									"        new_etag = new_etag.replace(/\"/g, '');",
+									"        console.log(new_etag);",
+									"        postman.setGlobalVariable(\"new_etag\", new_etag);",
+									"    }",
+									"    catch(e) {",
+									"        console.log(e)",
+									"    }",
+									"",
+									"}"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:9020/api/v1/definitions/DataSamplePayload/fields/$data",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-Match",
+								"value": "\"{{new_etag}}\"",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET - Definitions - List fields data - Not Modified - 304",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 304\"] = responseCode.code === 304;",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:9020/api/v1/definitions/DataSamplePayload/fields/$data",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-Modified-Since",
+								"value": "Sun, 06 Nov 2017 08:49:37 GMT",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET - Definitions - Retrieve Field Defintion",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:9020/api/v1/definitions/DataSamplePayload/fields/{{field_id}}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET - Definitions - Retrieve Field Defintion- Payload not Found - 404 ",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 404;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:9020/api/v1/definitions/DataSample/fields/NON_EA_ID",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET - Definitions - Retrieve Field Defintion - If Modified Since",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:9020/api/v1/definitions/DataSamplePayload/fields/{{field_id}}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-Modified-Since",
+								"value": "Sun, 06 Nov 1994 08:49:37 GMT",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET - Definitions - Retrieve Field Defintion - If None Match",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 200 || responseCode.code === 201;",
+									"tests[\"eTag is present\"] = postman.getResponseHeader(\"ETag\"); //Note: the getResponseHeader() ",
+									"",
+									"",
+									"if (responseCode.code == 200 || responseCode.code == 201) {",
+									"    try{",
+									"        var new_etag = postman.getResponseHeader(\"ETag\");",
+									"        new_etag = new_etag.replace(/\"/g, '');",
+									"        console.log(new_etag);",
+									"        postman.setGlobalVariable(\"new_etag\", new_etag);",
+									"    }",
+									"    catch(e) {",
+									"        console.log(e)",
+									"    }",
+									"",
+									"}"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:9020/api/v1/definitions/DataSamplePayload/fields/{{field_id}}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-None-Match",
+								"value": "\"{{new_etag}}\"",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET - Definitions - Retrieve Field Defintion - If Match",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 200 || responseCode.code === 201;",
+									"tests[\"eTag is present\"] = postman.getResponseHeader(\"ETag\"); //Note: the getResponseHeader() ",
+									"",
+									"",
+									"if (responseCode.code == 200 || responseCode.code == 201) {",
+									"    try{",
+									"        var new_etag = postman.getResponseHeader(\"ETag\");",
+									"        new_etag = new_etag.replace(/\"/g, '');",
+									"        console.log(new_etag);",
+									"        postman.setGlobalVariable(\"new_etag\", new_etag);",
+									"    }",
+									"    catch(e) {",
+									"        console.log(e)",
+									"    }",
+									"",
+									"}"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:9020/api/v1/definitions/DataSamplePayload/fields/{{field_id}}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-Match",
+								"value": "\"{{new_etag}}\"",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET - Definitions - Retrieve Field Defintion - Not Modified - 304",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 304\"] = responseCode.code === 304;",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:9020/api/v1/definitions/DataSamplePayload/fields/{{field_id}}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-Modified-Since",
+								"value": "Sun, 06 Nov 2017 08:49:37 GMT",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET - Definitions - List constraints",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:9020/api/v1/definitions/DataSamplePayload/constraints",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET - Definitions - List constraints - Payload Not Found - 404",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 404;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:9020/api/v1/definitions/DataSample/constraints",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET - Definitions - List constraints - If Modified Since",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:9020/api/v1/definitions/DataSamplePayload/constraints",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-Modified-Since",
+								"value": "Sun, 06 Nov 1994 08:49:37 GMT",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET - Definitions - List constraints - If None Match",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 200 || responseCode.code === 201;",
+									"tests[\"eTag is present\"] = postman.getResponseHeader(\"ETag\"); //Note: the getResponseHeader() ",
+									"",
+									"",
+									"if (responseCode.code == 200 || responseCode.code == 201) {",
+									"    try{",
+									"        var new_etag = postman.getResponseHeader(\"ETag\");",
+									"        new_etag = new_etag.replace(/\"/g, '');",
+									"        console.log(new_etag);",
+									"        postman.setGlobalVariable(\"new_etag\", new_etag);",
+									"    }",
+									"    catch(e) {",
+									"        console.log(e)",
+									"    }",
+									"",
+									"}"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:9020/api/v1/definitions/DataSamplePayload/constraints",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-None-Match",
+								"value": "\"{{new_etag}}\"",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET - Definitions - List constraints - If Match",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 200 || responseCode.code === 201;",
+									"tests[\"eTag is present\"] = postman.getResponseHeader(\"ETag\"); //Note: the getResponseHeader() ",
+									"",
+									"",
+									"if (responseCode.code == 200 || responseCode.code == 201) {",
+									"    try{",
+									"        var new_etag = postman.getResponseHeader(\"ETag\");",
+									"        new_etag = new_etag.replace(/\"/g, '');",
+									"        console.log(new_etag);",
+									"        postman.setGlobalVariable(\"new_etag\", new_etag);",
+									"    }",
+									"    catch(e) {",
+									"        console.log(e)",
+									"    }",
+									"",
+									"}"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:9020/api/v1/definitions/DataSamplePayload/constraints",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-Match",
+								"value": "\"{{new_etag}}\"",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET - Definitions - List constraints - Not Modified - 304 ",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 304\"] = responseCode.code === 304;",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:9020/api/v1/definitions/DataSamplePayload/constraints",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-Modified-Since",
+								"value": "Sun, 06 Nov 2017 08:49:37 GMT",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Test 13 - EA IDs",
+			"description": "",
+			"item": [
+				{
+					"name": "GET_ Retrieve permit or authorization details",
+					"request": {
+						"url": "http://localhost:9020/api/v1/ea_ids/10207",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET_ Retrieve permit or authorization details - if-modified-since",
+					"request": {
+						"url": "http://localhost:9020/api/v1/ea_ids/10207",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-Modified-Since",
+								"value": "Sun, 06 Nov 1993 08:49:37 GMT",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET_ Retrieve permit or authorization details- if modified-since - 304",
+					"request": {
+						"url": "http://localhost:9020/api/v1/ea_ids/10207",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-Modified-Since",
+								"value": "Sun, 06 Nov 2017 08:49:37 GMT",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET - Retrieve permit or authorization details - if-none-match",
+					"request": {
+						"url": "http://localhost:9020/api/v1/ea_ids/10207",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-None-Match",
+								"value": "\"/\"133b4f7ffc74e509730e0f78e3a38a63\"\"",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET - Retrieve permit or authorization details - if-none-match - 304",
+					"request": {
+						"url": "http://localhost:9020/api/v1/ea_ids/10207",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-None-Match",
+								"value": "\"/\"133b4f7ffc74e509730e0f78e3a38a63\"\"",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET - Retrieve permit or authorization details - EA_ID Not Exist - 404",
+					"request": {
+						"url": "http://localhost:9020/api/v1/ea_ids/10278",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-None-Match",
+								"value": "\"/\"133b4f7ffc74e509730e0f78e3a38a63\"\"",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Test 13 - List EA IDs",
+			"description": "",
+			"item": [
+				{
+					"name": "GET_ Retrieve permit or authorization details",
+					"request": {
+						"url": "http://localhost:9020/api/v1/ea_ids",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET_ Retrieve permit or authorization details - if-modified-since",
+					"request": {
+						"url": "http://localhost:9020/api/v1/ea_ids",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-Modified-Since",
+								"value": "Sun, 06 Nov 1993 08:49:37 GMT",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET_ Retrieve permit or authorization details- if modified-since - 304",
+					"request": {
+						"url": "http://localhost:9020/api/v1/ea_ids",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-Modified-Since",
+								"value": "Sun, 06 Nov 2017 08:49:37 GMT",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET - Retrieve permit or authorization details - if-none-match",
+					"request": {
+						"url": "http://localhost:9020/api/v1/ea_ids",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-None-Match",
+								"value": "\"30a00df100973f5013444d1e9a98b3f6\"",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET - Retrieve permit or authorization details - if-none-match - 304",
+					"request": {
+						"url": "http://localhost:9020/api/v1/ea_ids",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-None-Match",
+								"value": "\"/\"133b4f7ffc74e509730e0f78e3a38a63\"\"",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Test 14 - Update and Retrieve Dataset Status",
+			"description": "",
+			"item": [
+				{
+					"name": "GET -  Get dataset status",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 200 || responseCode.code === 201;",
+									"",
+									"if (responseCode.code == 200 || responseCode.code === 201) {",
+									"    try{",
+									"        var new_etag = postman.getResponseHeader(\"ETag\");",
+									"        new_etag = new_etag.replace(/\"/g, '');",
+									"        console.log(new_etag);",
+									"        postman.setGlobalVariable(\"new_etag\", new_etag);",
+									"    }",
+									"    catch(e) {",
+									"        console.log(e)",
+									"    }",
+									"",
+									"}",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:9020/api/v1/ea_ids/10207/datasets/ds04/status",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET -  Get dataset status - If None Match - 304",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 304;",
+									"",
+									"",
+									"if (responseCode.code == 304) {",
+									"    try{",
+									"        var new_etag = postman.getResponseHeader(\"ETag\");",
+									"        new_etag = new_etag.replace(/\"/g, '');",
+									"        console.log(new_etag);",
+									"        postman.setGlobalVariable(\"new_etag\", new_etag);",
+									"    }",
+									"    catch(e) {",
+									"        console.log(e)",
+									"    }",
+									"",
+									"}"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:9020/api/v1/ea_ids/10207/datasets/ds04/status",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-None-Match",
+								"value": "\"{{new_etag}}\"",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET -  Get dataset status - If None Match",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 304;",
+									"",
+									"",
+									"if (responseCode.code == 304) {",
+									"    try{",
+									"        var new_etag = postman.getResponseHeader(\"ETag\");",
+									"        new_etag = new_etag.replace(/\"/g, '');",
+									"        console.log(new_etag);",
+									"        postman.setGlobalVariable(\"new_etag\", new_etag);",
+									"    }",
+									"    catch(e) {",
+									"        console.log(e)",
+									"    }",
+									"",
+									"}"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:9020/api/v1/ea_ids/10207/datasets/ds04/status",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-None-Match",
+								"value": "\"0d210bfb2a0e1f1b4c082a6a0f79de07\"",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET -  Get dataset status - If Modifed Since - 304",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 304;",
+									"",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:9020/api/v1/ea_ids/10207/datasets/ds03/status",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-Modified-Since",
+								"value": "Sun, 06 Nov 2017 08:49:37 GMT",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET -  Get dataset status - If Modifed Since",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 304;",
+									"",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:9020/api/v1/ea_ids/10207/datasets/ds03/status",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-Modified-Since",
+								"value": "Sun, 06 Nov 2017 08:49:37 GMT",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET -  Get dataset status - EA ID Not Exist 404",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 304;",
+									"",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:9020/api/v1/ea_ids/10297/datasets/ds03/status",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-Modified-Since",
+								"value": "Sun, 06 Nov 2017 08:49:37 GMT",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Test 15 - Update Dataset Status",
+			"description": "",
+			"item": [
+				{
+					"name": "PUT -  Create test dataset",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 200 || responseCode.code === 201;",
+									"tests[\"Last Modified is present\"] = postman.getResponseHeader(\"Last-Modified\"); //Note: the getResponseHeader() ",
+									"",
+									"",
+									"if (responseCode.code == 200 || responseCode.code == 201) {",
+									"    try{",
+									"        var last_mod = postman.getResponseHeader(\"Last-Modified\");",
+									"        console.log(last_mod);",
+									"        postman.setGlobalVariable(\"last_mod\", last_mod);",
+									"    }",
+									"    catch(e) {",
+									"        console.log(e)",
+									"    }",
+									"",
+									"}",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/datasets/{{dataset}}",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"originator_email\": \"\"}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "PUT -  Update dataset status - 409",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 200 || responseCode.code === 201;",
+									"",
+									"if (responseCode.code == 200 || responseCode.code === 201) {",
+									"    try{",
+									"        var new_etag = postman.getResponseHeader(\"ETag\");",
+									"        new_etag = new_etag.replace(/\"/g, '');",
+									"        console.log(new_etag);",
+									"        postman.setGlobalVariable(\"new_etag\", new_etag);",
+									"    }",
+									"    catch(e) {",
+									"        console.log(e)",
+									"    }",
+									"",
+									"}",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:9020/api/v1/ea_ids/10207/datasets/ds04/status",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"status\": \"SUBMITTED\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "PUT -  Create test dataset - Add email",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 200 || responseCode.code === 201;",
+									"tests[\"Last Modified is present\"] = postman.getResponseHeader(\"Last-Modified\"); //Note: the getResponseHeader() ",
+									"",
+									"",
+									"if (responseCode.code == 200 || responseCode.code == 201) {",
+									"    try{",
+									"        var last_mod = postman.getResponseHeader(\"Last-Modified\");",
+									"        console.log(last_mod);",
+									"        postman.setGlobalVariable(\"last_mod\", last_mod);",
+									"    }",
+									"    catch(e) {",
+									"        console.log(e)",
+									"    }",
+									"",
+									"}",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{URL}}/api/v1/ea_ids/{{ea_id}}/datasets/{{dataset}}",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"originator_email\": \"{{email}}\"}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "PUT -  Update dataset status",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 200 || responseCode.code === 201;",
+									"",
+									"if (responseCode.code == 200 || responseCode.code === 201) {",
+									"    try{",
+									"        var new_etag = postman.getResponseHeader(\"ETag\");",
+									"        new_etag = new_etag.replace(/\"/g, '');",
+									"        console.log(new_etag);",
+									"        postman.setGlobalVariable(\"new_etag\", new_etag);",
+									"    }",
+									"    catch(e) {",
+									"        console.log(e)",
+									"    }",
+									"",
+									"}",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:9020/api/v1/ea_ids/10207/datasets/ds04/status",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"status\": \"SUBMITTED\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "PUT -  Update dataset status - If None Match",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 304;",
+									"",
+									"",
+									"if (responseCode.code == 304) {",
+									"    try{",
+									"        var new_etag = postman.getResponseHeader(\"ETag\");",
+									"        new_etag = new_etag.replace(/\"/g, '');",
+									"        console.log(new_etag);",
+									"        postman.setGlobalVariable(\"new_etag\", new_etag);",
+									"    }",
+									"    catch(e) {",
+									"        console.log(e)",
+									"    }",
+									"",
+									"}"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:9020/api/v1/ea_ids/10207/datasets/ds04/status",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-None-Match",
+								"value": "\"\\\"0d210bfb2a0e1f1b4c082a6a0f79de07\\\"\"",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"status\": \"SUBMITTED\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "PUT -  Update dataset status - If Modifed Since",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 304;",
+									"",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:9020/api/v1/ea_ids/10207/datasets/ds03/status",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-Modified-Since",
+								"value": "Sun, 06 Nov 2017 08:49:37 GMT",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"status\": \"SUBMITTED\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "PUT -  Update dataset status - If None Match - 304",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 304;",
+									"",
+									"",
+									"if (responseCode.code == 304) {",
+									"    try{",
+									"        var new_etag = postman.getResponseHeader(\"ETag\");",
+									"        new_etag = new_etag.replace(/\"/g, '');",
+									"        console.log(new_etag);",
+									"        postman.setGlobalVariable(\"new_etag\", new_etag);",
+									"    }",
+									"    catch(e) {",
+									"        console.log(e)",
+									"    }",
+									"",
+									"}"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:9020/api/v1/ea_ids/10207/datasets/ds04/status",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-None-Match",
+								"value": "\"{{new_etag}}\"",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"status\": \"SUBMITTED\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "PUT -  Update dataset status - If Modifed Since - 304",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 304;",
+									"",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:9020/api/v1/ea_ids/10207/datasets/ds03/status",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-Modified-Since",
+								"value": "Sun, 06 Nov 2017 08:49:37 GMT",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"status\": \"SUBMITTED\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "PUT -  Update dataset status - EA ID Not Exist 404",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is passed\"] = responseCode.code === 304;",
+									"",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:9020/api/v1/ea_ids/10297/datasets/ds03/status",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "If-Modified-Since",
+								"value": "Sun, 06 Nov 2017 08:49:37 GMT",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"status\": \"SUBMITTED\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PUT -  Create test dataset",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is passed\"] = responseCode.code === 200 || responseCode.code === 201;",
+							"tests[\"eTag is present\"] = postman.getResponseHeader(\"ETag\"); //Note: the getResponseHeader() ",
+							"",
+							"",
+							"if (responseCode.code == 200 || responseCode.code == 201) {",
+							"    try{",
+							"        var new_etag = postman.getResponseHeader(\"ETag\");",
+							"        new_etag = new_etag.replace(/\"/g, '');",
+							"        console.log(new_etag);",
+							"        postman.setGlobalVariable(\"new_etag\", new_etag);",
+							"    }",
+							"    catch(e) {",
+							"        console.log(e)",
+							"    }",
+							"",
+							"}",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:9020/api/v1/ea_ids/{{ea_id}}/datasets/{{dataset}}",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"originator_email\": \"{{email}}\"}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "PUT -  Create test dataset copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:9020/api/v1/ea_ids/10207/datasets/ds03/status",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{  \n\"status\": \"SUBMITTED\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

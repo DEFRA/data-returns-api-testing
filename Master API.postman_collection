@@ -1,0 +1,2008 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Master API",
+		"_postman_id": "e8440af9-8081-35d7-44c4-a674efb5638c",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Add Param and Param group",
+			"description": "",
+			"item": [
+				{
+					"name": "Post Parameter group",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 201\"] = responseCode.code === 201;",
+									"tests[\"Response body is not null\"] = responseBody != null;",
+									"var paramGroupRespon = JSON.parse(responseBody);",
+									"tests[\"Response body contains a link to the parameters collection for the group\"] = paramGroupRespon._links.parameters.href != null;",
+									"postman.setGlobalVariable(\"parameterGroupEntries\", paramGroupRespon._links.parameters.href);"
+								]
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"postman.setEnvironmentVariable('parameterGroupName', Math.random())"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "admin",
+								"password": "password",
+								"saveHelperData": true,
+								"showPassword": false
+							}
+						},
+						"url": "http://localhost:9020/api/parameterGroups",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
+								"description": ""
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t  \"nomenclature\": \"new parameter group {{parameterGroupName}}\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Post Parameter",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 201\"] = responseCode.code === 201;",
+									"tests[\"Response body is not null\"] = responseBody != null;",
+									"var paramResponse = JSON.parse(responseBody);",
+									"tests[\"Response body contains a link to the new parameter\"] = paramResponse._links.self.href != null;",
+									"postman.setGlobalVariable(\"parameterLocation\", paramResponse._links.self.href);"
+								]
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"postman.setEnvironmentVariable('parameterName', Math.random())"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "admin",
+								"password": "password",
+								"saveHelperData": true,
+								"showPassword": false
+							}
+						},
+						"url": "http://localhost:9020/api/parameters/",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " {\n      \"nomenclature\" : \"new parameter 232345ghfmdghdfghdfg156569\",\n      \"aliases\" : [ ],\n\t  \"cas\": \"120-71-95423fxdhmtdhteky56\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Add Parameter to parameter group",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 204\"] = responseCode.code === 204;"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "admin",
+								"password": "password",
+								"saveHelperData": true,
+								"showPassword": false
+							}
+						},
+						"url": "{{parameterGroupEntries}}",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "text/uri-list",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{parameterLocation}}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Check Parameter in group",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"tests[\"Response body is not null\"] = responseBody != null;",
+									"var paramGroupRespon = JSON.parse(responseBody);",
+									"tests[\"Response body contains a single parameter\"] = paramGroupRespon._embedded.parameters.length == 1;",
+									"tests[\"Response body contains the correct parameter\"] = paramGroupRespon._embedded.parameters[0]._links.self.href == parameterLocation;"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "admin",
+								"password": "password",
+								"saveHelperData": true,
+								"showPassword": false
+							}
+						},
+						"url": "{{parameterGroupEntries}}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{parameterLocation}}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Parameter",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 201\"] = responseCode.code === 201;",
+									"tests[\"Response body is not null\"] = responseBody != null;",
+									"var paramResponse = JSON.parse(responseBody);",
+									"tests[\"Response body contains a link to the new parameter\"] = paramResponse._links.self.href != null;",
+									"postman.setGlobalVariable(\"parameterLocation\", paramResponse._links.self.href);"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "admin",
+								"password": "password",
+								"saveHelperData": true,
+								"showPassword": false
+							}
+						},
+						"url": "http://localhost:9020/api/parametersGroups/",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " {\n      \"nomenclature\" : \"new parameter 232345ghfmdghdfghdfg156569\",\n      \"aliases\" : [ ],\n\t  \"cas\": \"120-71-95423fxdhmtdhteky56\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Parameter Group",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 201\"] = responseCode.code === 201;",
+									"tests[\"Response body is not null\"] = responseBody != null;",
+									"var paramResponse = JSON.parse(responseBody);",
+									"tests[\"Response body contains a link to the new parameter\"] = paramResponse._links.self.href != null;",
+									"postman.setGlobalVariable(\"parameterLocation\", paramResponse._links.self.href);"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "admin",
+								"password": "password",
+								"saveHelperData": true,
+								"showPassword": false
+							}
+						},
+						"url": "http://localhost:9020/api/parameters/{{parameterName}}",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " {\n      \"nomenclature\" : \"new parameter 232345ghfmdghdfghdfg156569\",\n      \"aliases\" : [ ],\n\t  \"cas\": \"120-71-95423fxdhmtdhteky56\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Add Param and Param group copy",
+			"description": "",
+			"item": [
+				{
+					"name": "Post Parameter group",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 201\"] = responseCode.code === 201;",
+									"tests[\"Response body is not null\"] = responseBody != null;",
+									"var paramGroupRespon = JSON.parse(responseBody);",
+									"tests[\"Response body contains a link to the parameters collection for the group\"] = paramGroupRespon._links.parameters.href != null;",
+									"postman.setGlobalVariable(\"parameterGroupEntries\", paramGroupRespon._links.parameters.href);"
+								]
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"postman.setEnvironmentVariable('parameterGroupName', Math.random())"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "admin",
+								"password": "password",
+								"saveHelperData": true,
+								"showPassword": false
+							}
+						},
+						"url": "http://localhost:9020/api/parameterGroups",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
+								"description": ""
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t  \"nomenclature\": \"new parameter group {{parameterGroupName}}\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Post Parameter",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 201\"] = responseCode.code === 201;",
+									"tests[\"Response body is not null\"] = responseBody != null;",
+									"var paramResponse = JSON.parse(responseBody);",
+									"tests[\"Response body contains a link to the new parameter\"] = paramResponse._links.self.href != null;",
+									"postman.setGlobalVariable(\"parameterLocation\", paramResponse._links.self.href);"
+								]
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"postman.setEnvironmentVariable('parameterName', Math.random())"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "admin",
+								"password": "password",
+								"saveHelperData": true,
+								"showPassword": false
+							}
+						},
+						"url": "http://localhost:9020/api/parameters/",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " {\n      \"nomenclature\" : \"new parameter 232345ghfmdghdfghdfg156569\",\n      \"aliases\" : [ ],\n\t  \"cas\": \"120-71-95423fxdhmtdhteky56\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Add Parameter to parameter group",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 204\"] = responseCode.code === 204;"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "admin",
+								"password": "password",
+								"saveHelperData": true,
+								"showPassword": false
+							}
+						},
+						"url": "{{parameterGroupEntries}}",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "text/uri-list",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{parameterLocation}}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Check Parameter in group",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"tests[\"Response body is not null\"] = responseBody != null;",
+									"var paramGroupRespon = JSON.parse(responseBody);",
+									"tests[\"Response body contains a single parameter\"] = paramGroupRespon._embedded.parameters.length == 1;",
+									"tests[\"Response body contains the correct parameter\"] = paramGroupRespon._embedded.parameters[0]._links.self.href == parameterLocation;"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "admin",
+								"password": "password",
+								"saveHelperData": true,
+								"showPassword": false
+							}
+						},
+						"url": "{{parameterGroupEntries}}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{parameterLocation}}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Parameter",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 201\"] = responseCode.code === 201;",
+									"tests[\"Response body is not null\"] = responseBody != null;",
+									"var paramResponse = JSON.parse(responseBody);",
+									"tests[\"Response body contains a link to the new parameter\"] = paramResponse._links.self.href != null;",
+									"postman.setGlobalVariable(\"parameterLocation\", paramResponse._links.self.href);"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "admin",
+								"password": "password",
+								"saveHelperData": true,
+								"showPassword": false
+							}
+						},
+						"url": "http://localhost:9020/api/parametersGroups/",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " {\n      \"nomenclature\" : \"new parameter 232345ghfmdghdfghdfg156569\",\n      \"aliases\" : [ ],\n\t  \"cas\": \"120-71-95423fxdhmtdhteky56\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Parameter Group",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 201\"] = responseCode.code === 201;",
+									"tests[\"Response body is not null\"] = responseBody != null;",
+									"var paramResponse = JSON.parse(responseBody);",
+									"tests[\"Response body contains a link to the new parameter\"] = paramResponse._links.self.href != null;",
+									"postman.setGlobalVariable(\"parameterLocation\", paramResponse._links.self.href);"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "admin",
+								"password": "password",
+								"saveHelperData": true,
+								"showPassword": false
+							}
+						},
+						"url": "http://localhost:9020/api/parameters/{{parameterName}}",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " {\n      \"nomenclature\" : \"new parameter 232345ghfmdghdfghdfg156569\",\n      \"aliases\" : [ ],\n\t  \"cas\": \"120-71-95423fxdhmtdhteky56\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Add Applicabilities ",
+			"description": "",
+			"item": [
+				{
+					"name": "Post Parameter group",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 201\"] = responseCode.code === 201;",
+									"tests[\"Response body is not null\"] = responseBody != null;",
+									"var paramGroupRespon = JSON.parse(responseBody);",
+									"tests[\"Response body contains a link to the parameters collection for the group\"] = paramGroupRespon._links.parameters.href != null;",
+									"postman.setGlobalVariable(\"parameterGroupEntries\", paramGroupRespon._links.parameters.href);"
+								]
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"postman.setEnvironmentVariable('parameterGroupName', Math.random())"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "admin",
+								"password": "password",
+								"saveHelperData": true,
+								"showPassword": false
+							}
+						},
+						"url": "http://localhost:9020/api/parameterGroups",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
+								"description": ""
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t  \"nomenclature\": \"new parameter group {{parameterGroupName}}\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Post Parameter",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 201\"] = responseCode.code === 201;",
+									"tests[\"Response body is not null\"] = responseBody != null;",
+									"var paramResponse = JSON.parse(responseBody);",
+									"tests[\"Response body contains a link to the new parameter\"] = paramResponse._links.self.href != null;",
+									"postman.setGlobalVariable(\"parameterLocation\", paramResponse._links.self.href);"
+								]
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"postman.setEnvironmentVariable('parameterName', Math.random())"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "admin",
+								"password": "password",
+								"saveHelperData": true,
+								"showPassword": false
+							}
+						},
+						"url": "http://localhost:9020/api/parameters/",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " {\n      \"nomenclature\" : \"new parameter 232345ghfmdghdfghdfg156569\",\n      \"aliases\" : [ ],\n\t  \"cas\": \"120-71-95423fxdhmtdhteky56\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Add Parameter to parameter group",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 204\"] = responseCode.code === 204;"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "admin",
+								"password": "password",
+								"saveHelperData": true,
+								"showPassword": false
+							}
+						},
+						"url": "{{parameterGroupEntries}}",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "text/uri-list",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{parameterLocation}}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Check Parameter in group",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"tests[\"Response body is not null\"] = responseBody != null;",
+									"var paramGroupRespon = JSON.parse(responseBody);",
+									"tests[\"Response body contains a single parameter\"] = paramGroupRespon._embedded.parameters.length == 1;",
+									"tests[\"Response body contains the correct parameter\"] = paramGroupRespon._embedded.parameters[0]._links.self.href == parameterLocation;"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "admin",
+								"password": "password",
+								"saveHelperData": true,
+								"showPassword": false
+							}
+						},
+						"url": "{{parameterGroupEntries}}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{parameterLocation}}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Parameter",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 201\"] = responseCode.code === 201;",
+									"tests[\"Response body is not null\"] = responseBody != null;",
+									"var paramResponse = JSON.parse(responseBody);",
+									"tests[\"Response body contains a link to the new parameter\"] = paramResponse._links.self.href != null;",
+									"postman.setGlobalVariable(\"parameterLocation\", paramResponse._links.self.href);"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "admin",
+								"password": "password",
+								"saveHelperData": true,
+								"showPassword": false
+							}
+						},
+						"url": "http://localhost:9020/api/parametersGroups/",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " {\n      \"nomenclature\" : \"new parameter 232345ghfmdghdfghdfg156569\",\n      \"aliases\" : [ ],\n\t  \"cas\": \"120-71-95423fxdhmtdhteky56\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Parameter Group",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 201\"] = responseCode.code === 201;",
+									"tests[\"Response body is not null\"] = responseBody != null;",
+									"var paramResponse = JSON.parse(responseBody);",
+									"tests[\"Response body contains a link to the new parameter\"] = paramResponse._links.self.href != null;",
+									"postman.setGlobalVariable(\"parameterLocation\", paramResponse._links.self.href);"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "admin",
+								"password": "password",
+								"saveHelperData": true,
+								"showPassword": false
+							}
+						},
+						"url": "http://localhost:9020/api/parameters/{{parameterName}}",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " {\n      \"nomenclature\" : \"new parameter 232345ghfmdghdfghdfg156569\",\n      \"aliases\" : [ ],\n\t  \"cas\": \"120-71-95423fxdhmtdhteky56\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Add Unit and Unit group",
+			"description": "",
+			"item": [
+				{
+					"name": "Post Unit Type",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 201\"] = responseCode.code === 201;",
+									"tests[\"Response body is not null\"] = responseBody != null;",
+									"var paramGroupRespon = JSON.parse(responseBody);",
+									"tests[\"Response body contains a link to the parameters collection for the group\"] = paramGroupRespon._links.parameters.href != null;",
+									"postman.setGlobalVariable(\"parameterGroupEntries\", paramGroupRespon._links.parameters.href);"
+								]
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"postman.setEnvironmentVariable('parameterGroupName', Math.random())"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "admin",
+								"password": "password",
+								"saveHelperData": true,
+								"showPassword": false
+							}
+						},
+						"url": "http://localhost:9020/api/parameterGroups",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
+								"description": ""
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t  \"nomenclature\": \"new parameter group {{parameterGroupName}}\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Post Unit",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 201\"] = responseCode.code === 201;",
+									"tests[\"Response body is not null\"] = responseBody != null;",
+									"var paramResponse = JSON.parse(responseBody);",
+									"tests[\"Response body contains a link to the new parameter\"] = paramResponse._links.self.href != null;",
+									"postman.setGlobalVariable(\"parameterLocation\", paramResponse._links.self.href);"
+								]
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"postman.setEnvironmentVariable('parameterName', Math.random())"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "admin",
+								"password": "password",
+								"saveHelperData": true,
+								"showPassword": false
+							}
+						},
+						"url": "http://localhost:9020/api/parameters/",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " {\n      \"nomenclature\" : \"new parameter 232345ghfmdghdfghdfg156569\",\n      \"aliases\" : [ ],\n\t  \"cas\": \"120-71-95423fxdhmtdhteky56\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Post Unit group",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 201\"] = responseCode.code === 201;",
+									"tests[\"Response body is not null\"] = responseBody != null;",
+									"var paramGroupRespon = JSON.parse(responseBody);",
+									"tests[\"Response body contains a link to the parameters collection for the group\"] = paramGroupRespon._links.parameters.href != null;",
+									"postman.setGlobalVariable(\"parameterGroupEntries\", paramGroupRespon._links.parameters.href);"
+								]
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"postman.setEnvironmentVariable('parameterGroupName', Math.random())"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "admin",
+								"password": "password",
+								"saveHelperData": true,
+								"showPassword": false
+							}
+						},
+						"url": "http://localhost:9020/api/parameterGroups",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
+								"description": ""
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t  \"nomenclature\": \"new parameter group {{parameterGroupName}}\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Add Unit to unit group",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 204\"] = responseCode.code === 204;"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "admin",
+								"password": "password",
+								"saveHelperData": true,
+								"showPassword": false
+							}
+						},
+						"url": "{{parameterGroupEntries}}",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "text/uri-list",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{parameterLocation}}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Check Unit in group",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"tests[\"Response body is not null\"] = responseBody != null;",
+									"var paramGroupRespon = JSON.parse(responseBody);",
+									"tests[\"Response body contains a single parameter\"] = paramGroupRespon._embedded.parameters.length == 1;",
+									"tests[\"Response body contains the correct parameter\"] = paramGroupRespon._embedded.parameters[0]._links.self.href == parameterLocation;"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "admin",
+								"password": "password",
+								"saveHelperData": true,
+								"showPassword": false
+							}
+						},
+						"url": "{{parameterGroupEntries}}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{parameterLocation}}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Unit Type",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 201\"] = responseCode.code === 201;",
+									"tests[\"Response body is not null\"] = responseBody != null;",
+									"var paramResponse = JSON.parse(responseBody);",
+									"tests[\"Response body contains a link to the new parameter\"] = paramResponse._links.self.href != null;",
+									"postman.setGlobalVariable(\"parameterLocation\", paramResponse._links.self.href);"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "admin",
+								"password": "password",
+								"saveHelperData": true,
+								"showPassword": false
+							}
+						},
+						"url": "http://localhost:9020/api/parametersGroups/",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " {\n      \"nomenclature\" : \"new parameter 232345ghfmdghdfghdfg156569\",\n      \"aliases\" : [ ],\n\t  \"cas\": \"120-71-95423fxdhmtdhteky56\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Unit",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 201\"] = responseCode.code === 201;",
+									"tests[\"Response body is not null\"] = responseBody != null;",
+									"var paramResponse = JSON.parse(responseBody);",
+									"tests[\"Response body contains a link to the new parameter\"] = paramResponse._links.self.href != null;",
+									"postman.setGlobalVariable(\"parameterLocation\", paramResponse._links.self.href);"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "admin",
+								"password": "password",
+								"saveHelperData": true,
+								"showPassword": false
+							}
+						},
+						"url": "http://localhost:9020/api/parametersGroups/",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " {\n      \"nomenclature\" : \"new parameter 232345ghfmdghdfghdfg156569\",\n      \"aliases\" : [ ],\n\t  \"cas\": \"120-71-95423fxdhmtdhteky56\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Unit Group",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 201\"] = responseCode.code === 201;",
+									"tests[\"Response body is not null\"] = responseBody != null;",
+									"var paramResponse = JSON.parse(responseBody);",
+									"tests[\"Response body contains a link to the new parameter\"] = paramResponse._links.self.href != null;",
+									"postman.setGlobalVariable(\"parameterLocation\", paramResponse._links.self.href);"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "admin",
+								"password": "password",
+								"saveHelperData": true,
+								"showPassword": false
+							}
+						},
+						"url": "http://localhost:9020/api/parameters/{{parameterName}}",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " {\n      \"nomenclature\" : \"new parameter 232345ghfmdghdfghdfg156569\",\n      \"aliases\" : [ ],\n\t  \"cas\": \"120-71-95423fxdhmtdhteky56\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Add Unit and Unit group copy",
+			"description": "",
+			"item": [
+				{
+					"name": "Post Nace Section",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 201\"] = responseCode.code === 201;",
+									"tests[\"Response body is not null\"] = responseBody != null;",
+									"var paramGroupRespon = JSON.parse(responseBody);",
+									"tests[\"Response body contains a link to the parameters collection for the group\"] = paramGroupRespon._links.parameters.href != null;",
+									"postman.setGlobalVariable(\"parameterGroupEntries\", paramGroupRespon._links.parameters.href);"
+								]
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"postman.setEnvironmentVariable('parameterGroupName', Math.random())"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "admin",
+								"password": "password",
+								"saveHelperData": true,
+								"showPassword": false
+							}
+						},
+						"url": "http://localhost:9020/api/parameterGroups",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
+								"description": ""
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t  \"nomenclature\": \"new parameter group {{parameterGroupName}}\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Post Nace Division",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 201\"] = responseCode.code === 201;",
+									"tests[\"Response body is not null\"] = responseBody != null;",
+									"var paramGroupRespon = JSON.parse(responseBody);",
+									"tests[\"Response body contains a link to the parameters collection for the group\"] = paramGroupRespon._links.parameters.href != null;",
+									"postman.setGlobalVariable(\"parameterGroupEntries\", paramGroupRespon._links.parameters.href);"
+								]
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"postman.setEnvironmentVariable('parameterGroupName', Math.random())"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "admin",
+								"password": "password",
+								"saveHelperData": true,
+								"showPassword": false
+							}
+						},
+						"url": "http://localhost:9020/api/parameterGroups",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
+								"description": ""
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t  \"nomenclature\": \"new parameter group {{parameterGroupName}}\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Post Nace Classes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 201\"] = responseCode.code === 201;",
+									"tests[\"Response body is not null\"] = responseBody != null;",
+									"var paramResponse = JSON.parse(responseBody);",
+									"tests[\"Response body contains a link to the new parameter\"] = paramResponse._links.self.href != null;",
+									"postman.setGlobalVariable(\"parameterLocation\", paramResponse._links.self.href);"
+								]
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"postman.setEnvironmentVariable('parameterName', Math.random())"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "admin",
+								"password": "password",
+								"saveHelperData": true,
+								"showPassword": false
+							}
+						},
+						"url": "http://localhost:9020/api/parameters/",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " {\n      \"nomenclature\" : \"new parameter 232345ghfmdghdfghdfg156569\",\n      \"aliases\" : [ ],\n\t  \"cas\": \"120-71-95423fxdhmtdhteky56\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Post Nace group",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 201\"] = responseCode.code === 201;",
+									"tests[\"Response body is not null\"] = responseBody != null;",
+									"var paramGroupRespon = JSON.parse(responseBody);",
+									"tests[\"Response body contains a link to the parameters collection for the group\"] = paramGroupRespon._links.parameters.href != null;",
+									"postman.setGlobalVariable(\"parameterGroupEntries\", paramGroupRespon._links.parameters.href);"
+								]
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"postman.setEnvironmentVariable('parameterGroupName', Math.random())"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "admin",
+								"password": "password",
+								"saveHelperData": true,
+								"showPassword": false
+							}
+						},
+						"url": "http://localhost:9020/api/parameterGroups",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
+								"description": ""
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t  \"nomenclature\": \"new parameter group {{parameterGroupName}}\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Add Nace Class to Nace Group",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 204\"] = responseCode.code === 204;"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "admin",
+								"password": "password",
+								"saveHelperData": true,
+								"showPassword": false
+							}
+						},
+						"url": "{{parameterGroupEntries}}",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "text/uri-list",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{parameterLocation}}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Check Nace Class in Nace Group",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"tests[\"Response body is not null\"] = responseBody != null;",
+									"var paramGroupRespon = JSON.parse(responseBody);",
+									"tests[\"Response body contains a single parameter\"] = paramGroupRespon._embedded.parameters.length == 1;",
+									"tests[\"Response body contains the correct parameter\"] = paramGroupRespon._embedded.parameters[0]._links.self.href == parameterLocation;"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "admin",
+								"password": "password",
+								"saveHelperData": true,
+								"showPassword": false
+							}
+						},
+						"url": "{{parameterGroupEntries}}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{parameterLocation}}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Unit Type",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 201\"] = responseCode.code === 201;",
+									"tests[\"Response body is not null\"] = responseBody != null;",
+									"var paramResponse = JSON.parse(responseBody);",
+									"tests[\"Response body contains a link to the new parameter\"] = paramResponse._links.self.href != null;",
+									"postman.setGlobalVariable(\"parameterLocation\", paramResponse._links.self.href);"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "admin",
+								"password": "password",
+								"saveHelperData": true,
+								"showPassword": false
+							}
+						},
+						"url": "http://localhost:9020/api/parametersGroups/",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " {\n      \"nomenclature\" : \"new parameter 232345ghfmdghdfghdfg156569\",\n      \"aliases\" : [ ],\n\t  \"cas\": \"120-71-95423fxdhmtdhteky56\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Unit",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 201\"] = responseCode.code === 201;",
+									"tests[\"Response body is not null\"] = responseBody != null;",
+									"var paramResponse = JSON.parse(responseBody);",
+									"tests[\"Response body contains a link to the new parameter\"] = paramResponse._links.self.href != null;",
+									"postman.setGlobalVariable(\"parameterLocation\", paramResponse._links.self.href);"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "admin",
+								"password": "password",
+								"saveHelperData": true,
+								"showPassword": false
+							}
+						},
+						"url": "http://localhost:9020/api/parametersGroups/",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " {\n      \"nomenclature\" : \"new parameter 232345ghfmdghdfghdfg156569\",\n      \"aliases\" : [ ],\n\t  \"cas\": \"120-71-95423fxdhmtdhteky56\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Unit Group",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 201\"] = responseCode.code === 201;",
+									"tests[\"Response body is not null\"] = responseBody != null;",
+									"var paramResponse = JSON.parse(responseBody);",
+									"tests[\"Response body contains a link to the new parameter\"] = paramResponse._links.self.href != null;",
+									"postman.setGlobalVariable(\"parameterLocation\", paramResponse._links.self.href);"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "admin",
+								"password": "password",
+								"saveHelperData": true,
+								"showPassword": false
+							}
+						},
+						"url": "http://localhost:9020/api/parameters/{{parameterName}}",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46cGFzc3dvcmQ=",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " {\n      \"nomenclature\" : \"new parameter 232345ghfmdghdfghdfg156569\",\n      \"aliases\" : [ ],\n\t  \"cas\": \"120-71-95423fxdhmtdhteky56\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Add Unit and Unit Group",
+			"description": "",
+			"item": []
+		}
+	]
+}
