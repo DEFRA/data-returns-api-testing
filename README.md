@@ -11,7 +11,7 @@ This project contains the automated API test for the Data Returns PI and LF serv
 
 ## Pre-requisites
 * Download Postman API client for Chrome- https://www.getpostman.com/
-* Clone Master Date API to local machine - git clone https://github.com/DEFRA/data-returns-data-exchange.git
+* Clone Master Data API to local machine - git clone https://github.com/DEFRA/data-returns-data-exchange.git
 
 
 ## Execution
@@ -32,7 +32,6 @@ https://www.getpostman.com/docs/postman/sending_api_requests/requests
 If you have an idea you'd like to contribute please log an issue.
 
 All contributions should be submitted via a pull request.
-
 
 
 ## License
