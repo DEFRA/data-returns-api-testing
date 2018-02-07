@@ -19,7 +19,7 @@ This project contains the automated API test for the Data Returns PI and LF serv
 ### Postman API client
 Once postman has been installed, collections from the git repo can be imported and run with the Postman API Client.
 
-* Open Post man API client
+* Open Postman API client
 * Import Postman Collection files from git repo into postman (Import button top left hand side)
 * Click on Collection tab top left, and the imported Collections should appear.
 * Collections should be now ready to execute:
