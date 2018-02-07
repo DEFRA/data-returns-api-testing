@@ -55,7 +55,7 @@ Once postman has been installed, collections from the git repo can be imported a
 https://www.getpostman.com/docs/postman/sending_api_requests/requests
 
 ### Command line exectution
-Post collection JSON files can also be run from the command line using Newman
+* Post collection JSON files can also be run from the command line using Newman
 
 https://www.getpostman.com/docs/postman/collection_runs/command_line_integration_with_newman
 
