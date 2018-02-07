@@ -10,36 +10,8 @@ The first Phase is designed to allow Permit Holders to submit there annual PI re
 This project contains the automated API test for the Data Returns PI and LF services. We use Postman, (https://www.getpostman.com/) as the means to test the service, and this project contains the collections required to test Landfill. Master and PI APIs
 
 ## Pre-requisites
-* Donwload Postman API client for Chrome- https://www.getpostman.com/
-* Close Master Date API to local machine - git clone https://github.com/DEFRA/data-returns-data-exchange.git
-
-
-## Installation
-
-Installing the Postman app
-
-Postman is available as a native app for Mac, Windows, and Linux operating systems. To install Postman, go to the apps page and click Download for Mac / Windows / Linux depending on your platform.
-
-* macOS installation
-Once you’ve downloaded app, you can drag the file to the “Applications” folder. Double click on Postman to open the application.
-
-* Windows installation
-Download the setup file
-Run the installer
-
-* Linux installation
-Installation on Linux can vary between distributions. Check out this guide for installing the Postman app on Ubuntu 16.04.
-
-* Postman Pro
-
-Postman Pro has the facilty to back and synchronise Postman collections on github, but the full version is required. 
-
-Note: Cost involved with this version.
-
-Details below:
-
-https://www.getpostman.com/docs/pro/integrations/github
-
+* Download Postman API client for Chrome- https://www.getpostman.com/
+* Clone Master Date API to local machine - git clone https://github.com/DEFRA/data-returns-data-exchange.git
 
 
 ## Execution
@@ -48,22 +20,11 @@ https://www.getpostman.com/docs/pro/integrations/github
 Once postman has been installed, collections from the git repo can be imported and run with the Postman API Client.
 
 * Open Post man API client
-* Import Postman Collection files from git repo into postman (Import but top left habd side)
+* Import Postman Collection files from git repo into postman (Import button top left hand side)
 * Click on Collection tab top left, and the imported Collections should appear.
 * Collections should be now ready to execute:
 
 https://www.getpostman.com/docs/postman/sending_api_requests/requests
-
-### Command line execution
-* Post collection JSON files can also be run from the command line using Newman
-
-https://www.getpostman.com/docs/postman/collection_runs/command_line_integration_with_newman
-
-### Jenkins integration
-* Install and run through jenkins 
-
-https://www.getpostman.com/docs/postman/collection_runs/integration_with_jenkins
-
 
 
 ## Contributing to this project
